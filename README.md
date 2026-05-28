@@ -9,12 +9,15 @@ On the bus runtime the daemon can look completely alive (process up, polling Tel
 ## What it covers
 
 - **Poll health** — is the daemon really long-polling Telegram? (incl. the `409 Conflict` "this is the good sign" check, webhook hijack, egress errors)
-- **Is the agent being fed?** — watch the agent's CPU on a test message, and a channel-bypassing `/api/inject` test
-- **The three fresh-install / wedge causes**
-  - `bypassPermissions` + startup trust / `--dangerously-load-development-channels` confirmation prompts freezing the PTY
+- **Is the agent being fed?** — is there even a live agent process, watch its CPU on a test message, and a channel-bypassing `/api/inject` test
+- **The confirmed fresh-install causes**
+  - bus mounted with **no agent / no adapter** — missing `settings.agents[]` and/or `telegram.busRouting`
+  - the new **"Bypass Permissions mode"** dialog (defaults to *No, exit*) that the blind `\r` auto-dismiss kills the agent with → fix via `skipDangerousModePermissionPrompt: true`
   - the MCP multiplexer synthesized `--mcp-config` wedge (ClaudeClaw-Plus #165)
-  - session-id collisions at boot
+  - session-id collisions at boot, first-run trust prompt
 - **Red herrings** that waste time — the CLI "not in known-good list" warning, and the multiplexer "transport closed" log lines
+
+Causes confirmed in the field via [moazbuilds/claudeclaw#216](https://github.com/moazbuilds/claudeclaw/issues/216).
 
 ## Install
 
