@@ -23,7 +23,8 @@ Causes confirmed in the field via [moazbuilds/claudeclaw#216](https://github.com
 
 ```bash
 git clone https://github.com/Nibbler1250/claudeclaw-plus-support
-cp -r claudeclaw-plus-support ~/.claude/skills/claudeclaw-plus-support
+mkdir -p ~/.claude/skills/claudeclaw-plus-support
+cp claudeclaw-plus-support/SKILL.md ~/.claude/skills/claudeclaw-plus-support/
 ```
 
 Then either invoke it directly with `/claudeclaw-plus-support`, or just describe your symptom ("Plus agent not responding on Telegram") and it triggers automatically.
