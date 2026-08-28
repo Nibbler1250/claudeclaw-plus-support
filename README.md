@@ -22,9 +22,12 @@ Causes confirmed in the field via [moazbuilds/claudeclaw#216](https://github.com
 ## Install
 
 ```bash
-git clone https://github.com/Nibbler1250/claudeclaw-plus-support
-mkdir -p ~/.claude/skills/claudeclaw-plus-support
-cp claudeclaw-plus-support/SKILL.md ~/.claude/skills/claudeclaw-plus-support/
+d=$(mktemp -d)
+git clone --depth 1 https://github.com/Nibbler1250/claudeclaw-plus-support "$d"
+install -Dm644 "$d/SKILL.md" ~/.claude/skills/claudeclaw-plus-support/SKILL.md
+rm -rf "$d"
 ```
+
+Re-run the same block to update: the clone lands in a fresh temp dir each time, and `install -D` overwrites in place.
 
 Then either invoke it directly with `/claudeclaw-plus-support`, or just describe your symptom ("Plus agent not responding on Telegram") and it triggers automatically.
